@@ -37,4 +37,14 @@ interface ButlerApi {
     boolean setShowImeWithHardKeyboardState(boolean enabled);
 
     boolean setImmersiveModeConfirmation(boolean enabled);
+
+    boolean setDensity(int density);
+
+    boolean resetDensity();
+
+    boolean setDisplaySize(int width, int height);
+
+    boolean resetSize();
+
+
 }

@@ -45,6 +45,7 @@ public class ButlerService extends Service {
     private SpellCheckerDisabler spellCheckerDisabler;
     private ShowImeWithHardKeyboardHelper showImeWithHardKeyboardHelper;
     private ImmersiveModeConfirmationDisabler immersiveModeDialogDisabler;
+    private DisplayResizer displayResizer;
 
     private WifiManager.WifiLock wifiLock;
     private PowerManager.WakeLock wakeLock;
@@ -91,6 +92,27 @@ public class ButlerService extends Service {
         public boolean setImmersiveModeConfirmation(boolean enabled) throws RemoteException {
             return immersiveModeDialogDisabler.setState(enabled);
         }
+
+        @Override
+        public boolean setDensity(int density) throws RemoteException {
+            return displayResizer.setForcedDisplayDensity(density);
+        }
+
+        @Override
+        public boolean resetDensity() throws RemoteException {
+            return displayResizer.clearForcedDisplayDensity();
+        }
+
+        @Override
+        public boolean setDisplaySize(int width, int height) throws RemoteException {
+            return displayResizer.setForcedDisplaySize(width, height);
+        }
+
+        @Override
+        public boolean resetSize() throws RemoteException {
+            return displayResizer.clearForcedDisplaySize();
+        }
+
     };
 
     @Override
@@ -110,6 +132,8 @@ public class ButlerService extends Service {
         // Disable animations on the device so tests can run reliably
         animationDisabler = new AnimationDisabler();
         animationDisabler.disableAnimations();
+
+        displayResizer = new DisplayResizer();
 
         // Acquire a WifiLock to prevent wifi from turning off and breaking tests
         // NOTE: holding a WifiLock does NOT override a call to setWifiEnabled(false)

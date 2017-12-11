@@ -246,6 +246,52 @@ public class TestButler {
         }
     }
 
+    public static void setDisplaySize(int width, int height) {
+        verifyApiReady();
+        try {
+            if (!butlerApi.setDisplaySize(width, height)) {
+                throw new IllegalStateException("Failed to set display size!");
+            }
+        } catch (RemoteException e) {
+            throw new IllegalStateException("Failed to communicate with ButlerService", e);
+        }
+    }
+
+    public static void resetDisplaySize() {
+        verifyApiReady();
+        try {
+            if (!butlerApi.resetSize()) {
+                throw new IllegalStateException("Failed to reset display size!");
+            }
+        } catch (RemoteException e) {
+            throw new IllegalStateException("Failed to communicate with ButlerService", e);
+        }
+    }
+
+
+    public static void setDisplayDensity(int density) {
+        verifyApiReady();
+        try {
+            if (!butlerApi.setDensity(density)) {
+                throw new IllegalStateException("Failed to set display density!");
+            }
+        } catch (RemoteException e) {
+            throw new IllegalStateException("Failed to communicate with ButlerService", e);
+        }
+    }
+
+    public static void resetDisplayDensity() {
+        verifyApiReady();
+        try {
+            if (!butlerApi.resetDensity()) {
+                throw new IllegalStateException("Failed to reset display density!");
+            }
+        } catch (RemoteException e) {
+            throw new IllegalStateException("Failed to communicate with ButlerService", e);
+        }
+    }
+
+
     /**
      * Enable or disable the system spell checker
      *
